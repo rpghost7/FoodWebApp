@@ -1,9 +1,14 @@
 import React from 'react'
+import SimpleSlider from './SimpleSlider';
+
+
+
 
 export default function Home() {
   return (
-    <div>
-      This is the home page
-    </div>
-  )
+    <>
+   
+    <SimpleSlider></SimpleSlider>
+    </>
+  );
 }

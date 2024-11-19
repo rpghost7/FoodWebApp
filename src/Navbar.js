@@ -1,27 +1,29 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
+
 export default function Navbar() {
     return (
         <>
-            <div className='bg-violet-800 flex flex-row justify-between'>
+            <div className='bg-violet-600 flex flex-row justify-between'>
 
                 <div className='flex flex-row'>
-                    <div className=' relative text-white text-4xl m-4 font-permanent-marker text-emerald-300'>
+                    <div className=' relative text-white text-4xl m-4 font-permanent-marker text-emerald-400'>
                         <Link to="/home">
                             StayHungri</Link></div>
-                    <div className=' relative text-white text-xl m-7 hover:text-violet-200 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-400 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full '>
+                    <div className=' relative text-white text-xl m-7 hover:text-violet-300 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-300 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full '>
                         <Link to="/home">
                             Home</Link></div>
-                    <div className=' relative text-white text-xl m-7 hover:text-violet-200 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-400 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full '>
+                    <div className=' relative text-white text-xl m-7 hover:text-violet-300 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-300 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full '>
                         <Link to="/contact">
                             Contact</Link></div>
                 </div>
-                <div className=' relative text-white text-xl m-7 hover:text-violet-200 '>
+                <div className=' relative text-white text-xl m-7 hover:text-violet-300 '>
                     <Link to="/log-in">
                         Log in</Link></div>
             </div>
-            <Outlet/>
+            <Outlet />
+            
         </>
     )
 }
