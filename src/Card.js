@@ -1,66 +1,74 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import chicken from './Chicken-Biryani-Recipe.jpg'
+import { ReactComponent as StarIcon } from './Star.svg';
+
 export default function Card() {
+  const [rating, setRating] = useState(0);
+  const percentage = Math.round((4 / 5) * 100);
+  function handleRating(){
+    setRating(4);
+  }
   return (
     <>
-    <div className='flex flex-row h-auto w-full mt-32 px-12 pb-10 '>
-        <div className='w-full h-full bg-violet-600'>
-            <img className='w-full object-fill' src={chicken} alt='chickenBiryani'/>
-            <p className='text-white text-2xl'>Card title</p>
-            <p className='text-white'>Card description</p>
-            <select className='bg-gray-400'>
-            {Array.from({ length: 9 }, (_, index) => {
-              return (
-                <option className='hover:bg-gray-200' key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              );
-            })}
-            </select>
+      <div className='flex flex-row h-auto w-full mt-32 px-12 pb-10 '>
+        <div className='w-full h-full rounded-md '>
+          <div className='bg-violet-600 rounded-md hover:w-11/12 hover:h-11/12'>
+            <img className='w-full object-fill rounded-md' src={chicken} alt='chickenBiryani' />
+            <p className='text-white text-2xl p-2'>Card title</p>
+            <p className='text-white p-2 inline-flex relative'>Rating:{handleRating}
+            
+              {Array.from(Array(5).keys()).map((_, i) => (
+                <StarIcon key={i} className="mr-0.5 w-5 h-5 flex z-10 translate-y-0.5" style={{color:'#ff8f00'}} />
+
+              ))}
+               <div className="bg-violet-600 absolute top-0 bottom-0 right-0  mix-blend-color z-20" style={{ width: `${100 - percentage}%` }} />
+            </p>
+            <p className='text-white p-2'>Expected time:</p>
+          </div>
         </div>
-        <div className='w-full h-full mx-36'>
-            <img className='w-full object-fill' src={chicken} alt='chickenBiryani'/>
-            <p className='text-white text-2xl'>Card title</p>
-            <p className='text-white'>Card description</p>
-            <select>
-            {Array.from({ length: 9 }, (_, index) => {
-              return (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              );
-            })}
-            </select>
+        <div className='w-full h-full rounded-md mx-20'>
+          <div className='bg-violet-600 rounded-md hover:w-11/12 hover:h-11/12'>
+            <img className='w-full object-fill rounded-md' src={chicken} alt='chickenBiryani' />
+            <p className='text-white text-2xl p-2'>Card title</p>
+            <p className='text-white p-2 inline-flex relative'>Rating:{handleRating}
+              {Array.from(Array(5).keys()).map((_, i) => (
+                <StarIcon key={i} className="mr-0 w-5 h-5 flex z-10  translate-y-0.5" style={{color:'#ff8f00'}} />
+
+              ))}
+               <div className="bg-violet-600 absolute top-0 bottom-0 right-0  mix-blend-color z-20" style={{ width: `${100 - percentage}%` }} />
+            </p>
+            <p className='text-white p-2'>Expected time:</p>
+          </div>
         </div>
-        <div className='w-full h-full mr-36'>
-            <img className='w-full object-fill' src={chicken} alt='chickenBiryani'/>
-            <p className='text-white text-2xl'>Card title</p>
-            <p className='text-white '>Card description</p>
-            <select>
-            {Array.from({ length: 9 }, (_, index) => {
-              return (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              );
-            })}
-            </select>
+        <div className='w-full h-full rounded-md '>
+          <div className='bg-violet-600 rounded-md hover:w-11/12 hover:h-11/12'>
+            <img className='w-full object-fill rounded-md' src={chicken} alt='chickenBiryani' />
+            <p className='text-white text-2xl p-2'>Card title</p>
+            <p className='text-white p-2 inline-flex relative'>Rating:{handleRating}
+              {Array.from(Array(5).keys()).map((_, i) => (
+                <StarIcon key={i} className="mr-0.5 w-5 h-5 flex z-10 translate-y-0.5" style={{color:'#ff8f00'}} />
+
+              ))}
+               <div className="bg-violet-600 absolute top-0 bottom-0 right-0  mix-blend-color z-20" style={{ width: `${100 - percentage}%` }} />
+            </p>
+            <p className='text-white p-2'>Expected time:</p>
+          </div>
         </div>
-        <div className='w-full h-full'>
-            <img className='w-full object-fill' src={chicken} alt='chickenBiryani'/>
-            <p className='text-white text-2xl'>Card title</p>
-            <p className='text-white'>Card description</p>
-            <select>
-            {Array.from({ length: 9 }, (_, index) => {
-              return (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              );
-            })}
-            </select>
+        <div className='w-full h-full rounded-md ml-20'>
+          <div className='bg-violet-600 rounded-md hover:w-11/12 hover:h-11/12'>
+            <img className='w-full object-fill rounded-md' src={chicken} alt='chickenBiryani' />
+            <p className='text-white text-2xl p-2'>Card title</p>
+            <p className='text-white p-2 inline-flex relative'>Rating:{handleRating}
+              {Array.from(Array(5).keys()).map((_, i) => (
+                <StarIcon key={i} className="mr-0.5 w-5 h-5 flex z-10 translate-y-0.5" style={{color:'#ff8f00'}} />
+
+              ))}
+               <div className="bg-violet-600 absolute top-0 bottom-0 right-0  mix-blend-color z-20" style={{ width: `${100 - percentage}%` }} />
+            </p>
+            <p className='text-white p-2'>Expected time:</p>
+          </div>
         </div>
-    </div>
+      </div>
     </>
   )
 }
