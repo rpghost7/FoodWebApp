@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import chicken from './Chicken-Biryani-Recipe.jpg'
 import { ReactComponent as StarIcon } from './Star.svg';
 
@@ -72,3 +72,7 @@ export default function Card() {
     </>
   )
 }
+
+// https://samuelkraft.com/blog/fractional-svg-stars-css
+// the above link was used to create the star rating system and it's css
+// thanks to that it is working
