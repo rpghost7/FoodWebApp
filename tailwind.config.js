@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'permanent-marker': ['"Permanent Marker"', 'cursive'], // Add the Google Font here
+        'austrailia':['"Edu AU VIC WA NT Pre"','cursive']
       },
     },
   },

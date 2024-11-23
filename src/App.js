@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import Contact from './Contact';
 import Login from './Login';
+import Signup from './Signup';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="contact" element={<Contact />} />
           <Route path="log-in" element={<Login />} />
+          <Route path="sign-up" element={<Signup />} />
         </Route>
       </Routes>
     </div>
