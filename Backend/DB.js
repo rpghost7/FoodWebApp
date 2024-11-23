@@ -1,19 +1,38 @@
 const mongoose = require('mongoose');
 const mongoURL = 'mongodb+srv://rishabpillai78:now4@clusterfood.3zbyo.mongodb.net/FoodDeliveryy?retryWrites=true&w=majority&appName=Clusterfood';
 
-const mongoDB = async () => {
-    try {
-        await mongoose.connect(mongoURL);
-        console.log("Connected to the database");
-
-        // Access collection after connection
-        const fetch_data = await mongoose.connection.db.collection("sample1"); 
-        const data = await fetch_data.find().toArray();
-        // console.log(data);
-        // so now it is working with async and await but not promises and then
-    } catch (err) {
-        console.log("An error has occured :",err);
-    }
-}
+const mongoDB = () => {
+    mongoose.connect(mongoURL)
+        .then(() => {
+            console.log('Connected to MongoDB');
+            return mongoose.connection.db.collection("sample1");
+        })
+        .then((fetch_data) => {
+            // Return the Promise from `toArray()`
+            return fetch_data.find({}).toArray();
+        })
+        .then((data) => {
+            // Log the fetched data
+            // console.log("Fetched data:", data);
+            console.log('data will be displayed');
+        })
+        .catch((err) => {
+            console.error("Error:", err);
+        });
+};
 
 module.exports = mongoDB;
+
+// alternative approach which also works
+// const mongoDB = async () => {
+//     try {
+//         await mongoose.connect(mongoURL);
+//         console.log('Connected to MongoDB');
+        
+//         const fetch_data = mongoose.connection.db.collection("sample1");
+//         const data = await fetch_data.find({}).toArray();
+//         console.log("Fetched data:", data);
+//     } catch (error) {
+//         console.error("Error during MongoDB operation:", error);
+//     }
+// };
