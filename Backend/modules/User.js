@@ -1,8 +1,9 @@
-const { type } = require('@testing-library/user-event/dist/type');
+
 const mongoose = require('mongoose')
 
 const { Schema } = mongoose;
-
+// this is how you create a schema in mongoDB 
+// it is useful for creating a new collection in the database
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -27,3 +28,5 @@ const UserSchema = new Schema({
 })
 
 module.exports = mongoose.model('user', UserSchema);
+// this creates a collection in mongoDB called user
+// you can use this collection to store data in your database

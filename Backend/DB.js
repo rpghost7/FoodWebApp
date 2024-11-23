@@ -11,7 +11,7 @@ const mongoDB = () => {
             // Return the Promise from `toArray()`
             return fetch_data.find({}).toArray();
         })
-        .then((data) => {
+        .then(() => {
             // Log the fetched data
             // console.log("Fetched data:", data);
             console.log('data will be displayed');
