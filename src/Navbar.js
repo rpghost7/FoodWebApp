@@ -18,16 +18,13 @@ export default function Navbar() {
                         <Link to="/contact">
                             Contact</Link></div>
                 </div>
-                <div className='flex flex-row'>
-                    <div className=' relative text-white text-xl m-7 hover:text-violet-300 '>
-                        <Link to="/log-in">
-                            Log in</Link>
-                    </div>
-                    <div className=' relative text-white text-xl m-7 hover:text-violet-300 '>
-                        <Link to="/sign-up">
-                            Sign Up</Link>
-                    </div>
+
+
+                <div className=' relative text-white text-xl m-7 hover:text-violet-300 '>
+                    <Link to="/sign-up">
+                        Sign Up</Link>
                 </div>
+
             </div>
             <Outlet />
 

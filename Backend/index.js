@@ -2,8 +2,11 @@ const express = require('express')
 const app = express();
 const port = 5000
 const mongodb = require('./DB');
-
 mongodb();
+const cors = require('cors');
+
+
+app.use(cors());
 app.use(express.json())
 // this is only used to parse incoming json files 
 // that means only for requests, so if i dont use it while sending response it is fine

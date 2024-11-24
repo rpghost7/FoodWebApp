@@ -3,3 +3,5 @@
     <path style="fill:currentColor;fill-rule:nonzero" d="m3.51 1.252.546 1.536 1.628.043.29.008-.23.176-1.293.993.463 1.563.082.277-.239-.163-1.344-.923V.98z"/>
     <path style="fill:none" d="M0 0h6.827v6.827H0z"/>
 </svg>
+
+<!-- here fill:currentColor means that whatever color i give it, it will become that -->
