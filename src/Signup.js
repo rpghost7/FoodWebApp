@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
 export default function Signup() {
-    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", location: "" })
+    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", location: "" });
+    const { setUser } = useContext(UserContext); // Use the context
     let navigate = useNavigate();
     async function handleSubmit(event) {
         event.preventDefault();
@@ -29,6 +31,7 @@ export default function Signup() {
           }
         }
         else if (json.success) {
+            setUser({name:json.naming})
             navigate('/');
         }
         

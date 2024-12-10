@@ -41,4 +41,3 @@ router.post('/login-user',[
 
 module.exports = router;
 // now here we are exporting it to the index.js file
-// wait a second
