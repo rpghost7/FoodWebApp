@@ -28,7 +28,9 @@ router.post('/login-user',[
             // here i am making it consistent with the express validator so that it gives the correct alert messages
         }
         //  and here we are creating a document inside the collection called user
-        res.json({ success: true });
+        
+        res.json({ success: true, naming: userData.name });
+        
     } catch (err) {
         console.log(err);
 

@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
-
+import { UserContext } from './UserContext';
+import { useContext } from 'react';
 
 export default function Navbar() {
+    const { user } = useContext(UserContext);
     return (
         <>
             <div className='bg-violet-600 flex flex-row justify-between'>
@@ -18,12 +20,16 @@ export default function Navbar() {
                         <Link to="/contact">
                             Contact</Link></div>
                 </div>
-
-
                 <div className=' relative text-white text-xl m-7 hover:text-violet-300 '>
-                    <Link to="/sign-up">
-                        Sign Up</Link>
+                    {user ? (
+                        <Link to="/profile">{user.name}</Link>
+                    ) : (
+                        <Link to="/sign-up">Sign Up</Link>
+                    )}
                 </div>
+
+
+
 
             </div>
             <Outlet />

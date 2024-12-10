@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import { UserContext } from './UserContext';
 export default function Login() {
-    const [credentials, setCredentials] = useState({  email: "", password: "" })
+    const [credentials, setCredentials] = useState({  email: "", password: "" });
+    const { setUser } = useContext(UserContext); // Use the context
     let navigate = useNavigate();
     async function handleSubmit(event) {
         event.preventDefault();
@@ -29,6 +30,7 @@ export default function Login() {
                 alert('An unknown error occurred.'); // Fallback for unknown errors
             }
         } else if (json.success) {
+            setUser({name:json.naming});
             navigate('/'); // Redirect on successful login
             // this is using the useNavigate hook in react
         }

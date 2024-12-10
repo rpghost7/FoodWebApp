@@ -31,7 +31,7 @@ router.post('/createuser',[
             password: req.body.password,
             location: req.body.location
         })
-        res.json({ success: true });
+        res.json({ success: true, naming:req.body.name });
     }
         //  and here we are creating a document inside the collection called user
         
