@@ -5,11 +5,12 @@ import Contact from './Contact';
 import Login from './Login';
 import Signup from './Signup';
 import Profile from './Profile';
-import { UserProvider } from './UserContext';
+
+// tailwind is in the css file
 
 function App() {
   return (
-    <UserProvider> {/* Wrap the application in the UserProvider */}
+   
     <div>
       <Routes>
         <Route path="/" element={<Navbar />}>
@@ -22,7 +23,7 @@ function App() {
         </Route>
       </Routes>
     </div>
-  </UserProvider>
+
   );
 }
 
