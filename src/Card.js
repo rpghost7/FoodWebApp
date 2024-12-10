@@ -5,7 +5,7 @@ import { ReactComponent as StarIcon } from './Star.svg';
 export default function Card() {
   const [rating, setRating] = useState(0);
   const percentage = Math.round((4 / 5) * 100);
-
+// still trying to figure out a way to give custom rating according to the products
   function handleRating() {
     setRating(4);
   }

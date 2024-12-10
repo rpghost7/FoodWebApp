@@ -14,16 +14,23 @@ export default function Login() {
             body: JSON.stringify({email: credentials.email, password: credentials.password })
         })
         const json = await response.json();
+        // here the api sends it as a stream and not as a json object interpreted by
+        // javascript that is why we need to json it to interpret it again
         console.log(json);
         if (!response.ok) { // Check if the response status is not OK (i.e., 200-299)
             // If there are errors, alert the first error message
             if (json.errors) {
-                alert(json.errors); // Display the first error message
+                  // Map over the errors to display a formatted message
+            const errorMessages = json.errors.map(error => error.msg).join('\n');
+            // here i use join \n because if there are two error messages to be displayed
+            // it will be displayed one on top of another and not separated by a comma
+            alert(errorMessages); // Show all error messages
             } else {
                 alert('An unknown error occurred.'); // Fallback for unknown errors
             }
         } else if (json.success) {
             navigate('/'); // Redirect on successful login
+            // this is using the useNavigate hook in react
         }
     }
     function handleChange(event) {

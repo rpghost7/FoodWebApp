@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", location: "" })
-
+    let navigate = useNavigate();
     async function handleSubmit(event) {
-        // event.preventDefault();
+        event.preventDefault();
+        // this is removed so that the page reloads on it's own otherwise it just looks like it hasn't been submitted
         const response = await fetch("http://localhost:5000/api/createuser", {
             method: "POST",
             headers: {
@@ -15,9 +16,22 @@ export default function Signup() {
         })
         const json = await response.json();
         console.log(json);
-        if (!json.success) {
-            alert('Enter valid credentials');
+        if(!response.ok){
+            // this is to check is response status is not ok
+            if (json.errors) {
+                // Map over the errors to display a formatted message
+          const errorMessages = json.errors.map(error => error.msg).join('\n');
+          // here i use join \n because if there are two error messages to be displayed
+          // it will be displayed one on top of another and not separated by a comma
+          alert(errorMessages); // Show all error messages
+          } else {
+              alert('An unknown error occurred.'); // Fallback for unknown errors
+          }
         }
+        else if (json.success) {
+            navigate('/');
+        }
+        
     }
     function handleChange(event) {
         // here i have to write the event.target.name in the brackets
