@@ -11,3 +11,6 @@ export function UserProvider({ children }) {
         </UserContext.Provider>
     );
 }
+
+// note that i wrap userContext around everything in the index.js file 
+// this is so that any of the files can access the information in this context

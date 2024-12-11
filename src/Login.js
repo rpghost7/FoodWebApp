@@ -4,6 +4,9 @@ import { UserContext } from './UserContext';
 export default function Login() {
     const [credentials, setCredentials] = useState({  email: "", password: "" });
     const { setUser } = useContext(UserContext); // Use the context
+    // here we are borrowing setUser from the usercontext and assigning a value
+    // which can be used in other files as well , and this is how we are able to display in
+    // the navbar that we are logged in or signed in etc
     let navigate = useNavigate();
     async function handleSubmit(event) {
         event.preventDefault();
