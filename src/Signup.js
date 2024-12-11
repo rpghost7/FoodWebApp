@@ -26,6 +26,10 @@ export default function Signup() {
           // here i use join \n because if there are two error messages to be displayed
           // it will be displayed one on top of another and not separated by a comma
           alert(errorMessages); // Show all error messages
+
+          if(errorMessages === 'You are already a user please log in'){
+                navigate('/log-in');
+          }
           } else {
               alert('An unknown error occurred.'); // Fallback for unknown errors
           }

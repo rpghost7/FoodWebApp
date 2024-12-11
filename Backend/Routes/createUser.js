@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../modules/User');
+const bcrypt = require ('bcrypt');
+
+// importing the bcrypt module
 const { body, validationResult } = require('express-validator');
 // this thing is called express validator 
 // we are taking take collection from the file
@@ -18,6 +21,11 @@ router.post('/createuser',[
             return res.status(400).json({ errors: errors.array() });
         }
         // this gives an error if the above conditions don't match or break 
+        const salt = await bcrypt.genSalt(10);
+        // this is to generate salt which is technically the gibberish part in
+        // the encyrption and makes it more secure
+        let secPass = await bcrypt.hash(req.body.password,salt);
+        // this combines using hash the password and the salt to make it totally secure
     try {
         let email= req.body.email;
         let userData = await User.findOne({email});
@@ -28,7 +36,7 @@ router.post('/createuser',[
         await User.create({
             name: req.body.name,
             email:req.body.email,
-            password: req.body.password,
+            password: secPass,
             location: req.body.location
         })
         res.json({ success: true, naming:req.body.name });
