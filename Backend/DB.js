@@ -34,6 +34,7 @@ const mongoDB = async () => {
         const fetch_data = await mongoose.connection.db.collection("sample1");
         const data = await fetch_data.find({}).toArray();
         global.food_items= data;
+        
         const fetch_data2 = await mongoose.connection.db.collection("sample2");
         const catData = await fetch_data2.find({}).toArray();
         global.food_category=catData;
