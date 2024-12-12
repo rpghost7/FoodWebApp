@@ -59,16 +59,16 @@ function SimpleSlider() {
       <div className="w-full">
         <Slider {...settings}>
           {/* syntax for the react slider */}
-          <div className="h-[65rem]">
+          <div className="h-[40rem]">
             <img className="object-fill w-full h-full" src={chicken} alt='chicken' />
           </div>
-          <div className="h-[65rem]">
+          <div className="h-[40rem]">
             <img className="object-fill w-full h-full" src={pizza} alt='pizza' />
           </div>
-          <div className="h-[65rem]">
+          <div className="h-[40rem]">
             <img className="object-fill w-full h-full" src={pasta} alt='pasta' />
           </div>
-          <div className="h-[65rem]">
+          <div className="h-[40rem]">
             <img className="object-fill w-full h-full" src={momos} alt='momos' />
           </div>
 

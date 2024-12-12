@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import chicken from './Chicken-Biryani-Recipe.jpg';
 import { ReactComponent as StarIcon } from './Star.svg';
-import CustomDropdown from './CustomDropdown';
+
 
 export default function Card() {
   const [rating, setRating] = useState(0);
