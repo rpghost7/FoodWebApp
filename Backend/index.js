@@ -12,6 +12,7 @@ app.use(express.json())
 // that means only for requests, so if i dont use it while sending response it is fine
 app.use('/api',require("./Routes/createUser"));
 app.use('/api',require("./Routes/loginuser"));
+app.use('/api',require("./Routes/DisplayData"));
 // this mounts the route and creates it 
 // meaning it is /api/loginuser is the route
 app.listen(port, () => {
