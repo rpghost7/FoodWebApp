@@ -90,7 +90,8 @@ export default function Card() {
           (datas) => datas.CategoryName === item.CategoryName
         );
         if (categoryItems.length === 0) return null;
-
+        // this line to check whether the category has something in it or no
+        // so it removes the category from being rendered when the length is 0
         return(<div key={item.CategoryName}>
           <h2 className="text-3xl font-bold my-8">{item.CategoryName}</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16">
