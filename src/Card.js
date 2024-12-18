@@ -1,38 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import chickenBiryani from './Chicken-Biryani-Recipe.jpg';
-import paneer65 from './Paneer 65.jpeg'
-import vegbiryani from './Pulao.jpg'
-import paneerTikka from './Paneer-Tikka-Featured.jpg'
-import prawns from './shrimp-fried-rice.jpg'
-import chickenRice from './Chicken-Fried-Rice-square-FS-.jpg'
-import friedRice from './veg-fried-rice.jpg'
-import pizza from './vegetarian-pizza.jpg'
-import chilliPaneer from './chilli-paneer02.jpg'
-import fishBiryani from './Fish biryani.jpeg'
-import chickenCheesePizza from './chicken-cheese-pizza.jpg'
-import chickenTikka from './chickentikkakebab.jpg'
+import paneer65 from './Paneer 65.jpeg';
+import vegbiryani from './Pulao.jpg';
+import paneerTikka from './Paneer-Tikka-Featured.jpg';
+import prawns from './shrimp-fried-rice.jpg';
+import chickenRice from './Chicken-Fried-Rice-square-FS-.jpg';
+import friedRice from './veg-fried-rice.jpg';
+import pizza from './vegetarian-pizza.jpg';
+import chilliPaneer from './chilli-paneer02.jpg';
+import fishBiryani from './Fish biryani.jpeg';
+import chickenCheesePizza from './chicken-cheese-pizza.jpg';
+import chickenTikka from './chickentikkakebab.jpg';
 import { ReactComponent as StarIcon } from './Star.svg';
-
+import { CartDispatchData, CartStateData } from './ContextReducer';
 
 export default function Card() {
 
   const [data, setData] = useState({});
   const [hoverItemId, setHoverItemId] = useState(null);
+  const [hoverItemId2, setHoverItemId2] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [notification, setNotification] = useState(null);
+  const notificationTimeouts = useRef({}); // Store timeouts for each item
+  const dispatch = useContext(CartDispatchData);
+ 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-
   };
+
   function handleMouseEnter(Id) {
     setHoverItemId(Id);
+  setHoverItemId2(Id);
   }
+
   function handleMouseLeave() {
+    setHoverItemId2(null);
     setHoverItemId(null);
+   
+    
   }
-  // still trying to figure out a way to give custom rating according to the products
+
+  async function handleAddCart(foodItem) {
+    await dispatch({ type: "ADD", id: foodItem._id, name: foodItem.name });
+    setHoverItemId2(null);
+    setNotification(foodItem._id); // Show the notification
+      // If there is an existing timeout for this item, clear it first
+      if (notificationTimeouts.current[foodItem._id]) {
+        clearTimeout(notificationTimeouts.current[foodItem._id]);
+      }
+  
+      // Hide the notification after 2 seconds
+      notificationTimeouts.current[foodItem._id] = setTimeout(() => {
+        setNotification(null);
+        delete notificationTimeouts.current[foodItem._id]; // Clean up timeout reference after it runs
+      }, 2000);
+  }
+
   const filteredItems = data.food_items?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    // includes is used to find out which of the dishes or strings contains the letters we are typing
   );
   const images = {
     "Chicken Biryani": chickenBiryani,
@@ -103,12 +128,20 @@ export default function Card() {
                 const percentage = Math.round((no / 5) * 100);
 
                 return (
-                  <div key={foodItem._id} className="w-11/12 h-full rounded-md">
+                  <div key={foodItem._id} onClick={()=>{
+                    handleAddCart(foodItem)
+                  }} className="w-11/12 h-full rounded-md relative">
+                    {notification=== foodItem._id ? (<div className='text-white bg-violet-500 absolute w-28 p-1 top-[-3rem] right-0 rounded-xl z-10'>
+                      Added to cart!
+                    </div>) : ''}
+                    {hoverItemId2 === foodItem._id?(<div className='text-white bg-violet-500 absolute w-24 p-1 top-[-3rem] right-0 rounded-xl z-10'>
+                      Click to Add
+                    </div>): ""}
                     <div className="bg-violet-600 rounded-md hover:w-11/12 hover:h-11/12" onMouseEnter={() => {
                       handleMouseEnter(foodItem._id);
-                    }} onMouseLeave={() => {
+                      }} onMouseLeave={() => {
                       handleMouseLeave();
-                    }}>
+                      }}>
 
                       <img
                         className={` w-full h-64 object-fill rounded-md ${hoverItemId === foodItem._id ? 'recti' : ' '}`}
@@ -131,6 +164,7 @@ export default function Card() {
                           style={{ width: `${100 - percentage}%` }}
                         />
                       </p>
+                     
                     </div>
                   </div>
                 );
