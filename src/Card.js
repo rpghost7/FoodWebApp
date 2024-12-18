@@ -152,39 +152,5 @@ export default function Card() {
 // or flex box
 
 
-{/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 text-white">
-{data.food_items
-  .filter(datas => datas.CategoryName === item.CategoryName)
-  .map(foodItem => {
-    // Calculate the percentage for the current item's rating
-    let percentage = Math.round((foodItem.rating / 5) * 100);
 
-    return (
-      <div key={foodItem._id} className="w-5/6 h-full rounded-md">
-        <div className="bg-violet-600 rounded-md hover:w-11/12 hover:h-11/12">
-          <img
-            className="w-full h-64 object-fill rounded-md"
-            src={images[foodItem.name]}
-            alt={foodItem.name}
-          />
-          <p className="text-white text-2xl p-2">{foodItem.name}</p>
-          <p className="text-white p-2 inline-flex relative">
-            Rating: {foodItem.rating}
-            {Array.from(Array(5).keys()).map((_, i) => (
-              <StarIcon
-                key={i}
-                className="mr-0.5 w-5 h-5 flex z-10 translate-y-0.5"
-                style={{ color: '#ff8f00' }} // Fixed color for all stars
-              />
-            ))}
-            <div
-              className="bg-violet-600 absolute top-0 bottom-0 right-0 mix-blend-color z-20"
-              style={{ width: `${100 - percentage}%` }}
-            />
-          </p>
-        </div>
-      </div>
-    );
-  })}
-</div> */}
 
