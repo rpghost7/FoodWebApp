@@ -13,6 +13,7 @@ const reducer = (state, action) => {
           quantity: 1,
           size: action.size,
           price: action.price,
+          category:action.category
         },
       ];
     case "UPDATE":
@@ -29,6 +30,12 @@ const reducer = (state, action) => {
             }
           : item
       );
+      case "SIZE":
+        return state.map((item) => 
+          item.id === action.id ? {
+            ...item,size:action.size,price:action.price
+          } : item
+        )
       case "DELETE":
         return state.filter((item) => item.id !== action.id);
     default:

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ReactComponent as LeftArrow } from "./left-arrow-svgrepo-com.svg";
 import { ReactComponent as Dot } from "./dot-svgrepo-com.svg";
 import { ReactComponent as Plus } from "./plus-svgrepo-com.svg";
@@ -18,13 +18,17 @@ import chilliPaneer from "./chilli-paneer02.jpg";
 import fishBiryani from "./Fish biryani.jpeg";
 import chickenCheesePizza from "./chicken-cheese-pizza.jpg";
 import chickenTikka from "./chickentikkakebab.jpg";
+
 export default function OrderSummary() {
+  const [data, setData] = useState({});
   let navigate = useNavigate();
   function handleBackHome() {
     navigate("/home");
   }
+
   const state = useContext(CartStateData);
   const dispatch = useContext(CartDispatchData);
+  const foodItem = data.food_items;
   const images = {
     "Chicken Biryani": chickenBiryani,
     "Paneer 65": paneer65,
@@ -39,14 +43,31 @@ export default function OrderSummary() {
     "Chicken Cheese Pizza": chickenCheesePizza,
     "Chicken Tikka": chickenTikka,
   };
-  useEffect(() => {
-    state.map((item) => console.log(item));
-  }, [state]);
+  // useEffect(() => {
+  //   state.map((item) => console.log(item));
+  // }, [state]);
   async function handleIncrement(itemId) {
     await dispatch({
       type: "QTY",
       id: itemId,
       quantity: 1,
+    });
+  }
+  async function handleChange(item, event) {
+    let cost = 0;
+    let sizing = event.target.value;
+    foodItem.map((food) => {
+      if (food._id === item.id) {
+        cost = parseInt(food.options[0][sizing]);
+      }
+      return 0;
+    });
+
+    await dispatch({
+      type: "SIZE",
+      id: item.id,
+      size: sizing,
+      price: cost,
     });
   }
   async function handleDecrement(itemId) {
@@ -62,42 +83,61 @@ export default function OrderSummary() {
       id: itemId,
     });
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/food-data", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        // console.log(data.food_items);
+        setData(data);
+      } catch (error) {
+        console.error("Error fetching cards:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
   return (
     <>
       <div className="flex flex-row my-8 ">
         <div className="basis-3/4 bg-cyan-800 p-2 mx-7 rounded-lg">
-          <h1 className="text-white bold text-3xl text-center">
-            Order Summary
-          </h1>
+          <h1 className="text-white bold text-4xl text-center">Your Order</h1>
           {state.map((item) => (
             <div className="flex flex-row my-2 gap-4 items-center relative">
               <Dot className="w-7 h-7"></Dot>
-              <div >
+              <div>
                 <img
                   className="w-32 h-32 rounded-xl shadow-lg shadow-stone-800"
                   src={images[item.name]}
                   alt={item.name}
                 ></img>
-                <div className="text-white text-md my-3 text-wrap">{item.name}</div>
+                <div className="text-white text-md my-3 text-wrap">
+                  {item.name}
+                </div>
               </div>
               <div className="flex flex-row px-1">
                 <button
                   onClick={() => {
-                    handleIncrement(item.id);
+                    handleDecrement(item.id);
                   }}
                   className="bg-white rounded-l-lg hover:bg-stone-200"
                 >
-                  <Plus className="w-6 h-6"></Plus>
+                  <Minus className="w-6 h-6 "></Minus>
                 </button>
+
                 <div className="bg-stone-400 px-2">{item.quantity}</div>
                 <button
                   onClick={() => {
-                    handleDecrement(item.id);
+                    handleIncrement(item.id);
                   }}
                   className="bg-white rounded-r-lg hover:bg-stone-200"
                 >
-                  <Minus className="w-6 h-6 "></Minus>
+                  <Plus className="w-6 h-6"></Plus>
                 </button>
               </div>
               <button
@@ -108,19 +148,51 @@ export default function OrderSummary() {
               >
                 <Bin className="w-6 h-6"></Bin>
               </button>
-              <select className="rounded-lg border-none">
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
+              <select
+                className="rounded-lg border-none bg-stone-400"
+                onChange={(event) => {
+                  handleChange(item, event);
+                }}
+              >
+                {item.category === "Pizza" ? (
+                  <>
+                    <option value="regular">regular</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="half">half</option>
+                    <option value="full">full</option>
+                  </>
+                )}
               </select>
               <div className="text-white text-xl absolute right-8">
-                Price : {item.price}
+                Price : {item.price * item.quantity}
               </div>
             </div>
           ))}
         </div>
-        <div className="text-white basis-1/4 bg-sky-800 p-2 mx-7 rounded-lg">
-          here will be breakdown of the total price of the order with each item
+        <div className=" basis-1/4 bg-sky-800 mx-7 rounded-lg">
+          <div className="flex flex-col items-center">
+            <div className="text-white text-4xl my-4">Order Summary</div>
+            <div className="bg-white rounded-lg w-11/12 my-3 flex-grow">
+            {state.map((item) => (
+              <div
+                key={item.id} // It's a good practice to use a unique key for list items
+                className=" p-2 flex flex-row justify-between "
+              >
+                <div className="flex flex-row items-center">
+                <Dot className="w-3 h-3 mx-2"></Dot> 
+                <div className="text-black text-xl">
+                  {item.name} ({item.size}) x {item.quantity}
+                </div>
+                </div>
+                <div className="text-black text-xl mx-2"> : {item.price}</div>
+              </div>
+            ))}
+            </div>
+          </div>
         </div>
       </div>
       <div

@@ -62,6 +62,7 @@ export default function Card() {
       name: foodItem.name,
       size: 'regular',
       price: cost,
+      category:foodItem.CategoryName,
     });
   } else {
     // Ensure 'half' exists and parse the cost
@@ -77,6 +78,7 @@ export default function Card() {
       name: foodItem.name,
       size: 'half',
       price: cost,
+      category: foodItem.CategoryName,
     });
   }
     }
