@@ -36,9 +36,11 @@ router.post("/myOrders", async (req, res) => {
     } else {
       res.json({ message: "You haven't ordered anything yet" });
     }
-  } catch (err) {}
-  console.error(err);
-  res.status(500).json({ success: false, message: "Server error" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+
 });
 
 module.exports = router;
