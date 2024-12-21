@@ -21,6 +21,7 @@ import chickenTikka from "./chickentikkakebab.jpg";
 
 export default function OrderSummary() {
   const [data, setData] = useState({});
+
   let navigate = useNavigate();
   function handleBackHome() {
     navigate("/home");
@@ -43,8 +44,17 @@ export default function OrderSummary() {
     "Chicken Cheese Pizza": chickenCheesePizza,
     "Chicken Tikka": chickenTikka,
   };
+
+  const totalPrice = state.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const deliveryCharge = 40;
   // useEffect(() => {
-  //   state.map((item) => console.log(item));
+
+  //   state.map((item)=>
+  //   setTotalPrice((prevTotalPrice)=>prevTotalPrice+item.price*item.quantity)) // Initial calculation when the component mounts or `state` changes
+
   // }, [state]);
   async function handleIncrement(itemId) {
     await dispatch({
@@ -78,7 +88,7 @@ export default function OrderSummary() {
     });
   }
   async function handleDelete(itemId) {
-    dispatch({
+    await dispatch({
       type: "DELETE",
       id: itemId,
     });
@@ -167,39 +177,77 @@ export default function OrderSummary() {
                   </>
                 )}
               </select>
-              <div className="text-white text-xl absolute right-8">
+              {/* <div className="text-white text-xl absolute right-8">
                 Price : {item.price * item.quantity}
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
-        <div className=" basis-1/4 bg-sky-800 mx-7 rounded-lg">
-          <div className="flex flex-col items-center">
-            <div className="text-white text-4xl my-4">Order Summary</div>
-            <div className="bg-white rounded-lg w-11/12 my-3 flex-grow">
+        <div className="basis-1/4 bg-sky-800 mx-7 rounded-lg h-min flex flex-col items-center">
+          <div className="text-white text-4xl my-4">Order Summary</div>
+          <div className="bg-white rounded-lg w-11/12 my-3 ">
             {state.map((item) => (
-              <div
-                key={item.id} // It's a good practice to use a unique key for list items
-                className=" p-2 flex flex-row justify-between "
-              >
+              <div key={item.id} className="p-2 flex flex-row justify-between">
                 <div className="flex flex-row items-center">
-                <Dot className="w-3 h-3 mx-2"></Dot> 
-                <div className="text-black text-xl">
-                  {item.name} ({item.size}) x {item.quantity}
+                  <Dot className="w-3 h-3 mx-2"></Dot>
+                  <div className="text-black text-xl">
+                    {item.name} ({item.size}) x {item.quantity}
+                  </div>
                 </div>
+                <div className="text-black text-xl mx-2 font-bold">
+                  : {item.price * item.quantity}
                 </div>
-                <div className="text-black text-xl mx-2"> : {item.price}</div>
               </div>
             ))}
+            {state.length !== 0 ? (
+              <>
+                <div className="p-2 flex flex-row justify-between">
+                  <div className="text-black text-md">Delivery Charges</div>
+
+                  <div className="text-black text-md mx-2 ">
+                    : {deliveryCharge}
+                  </div>
+                </div>
+
+                <div className="p-2 flex flex-row justify-between">
+                  <div className="text-black text-md ">GST 2.5%</div>
+
+                  <div className="text-black text-md mx-2">
+                    : {totalPrice * 0.025}
+                  </div>
+                </div>
+                <div className="p-2 flex flex-row justify-between">
+                  <div className="text-black text-md ">SGST 2.5%</div>
+
+                  <div className="text-black text-md mx-2">
+                    : {totalPrice * 0.025}
+                  </div>
+                </div>
+              </>
+            ) : (
+              " "
+            )}
+            <div className="p-2 flex flex-row justify-between">
+              <div className="text-black text-xl font-black">Total Price</div>
+
+              <div className="text-black text-xl mx-2 font-bold">
+                :{" "}
+                {totalPrice +
+                  totalPrice * 0.05 +
+                  (state.length !== 0 ? deliveryCharge : 0)}
+                Rs
+              </div>
             </div>
           </div>
+          <button className="bg-yellow-500 text-black text-lg text-bold w-11/12 mb-6 mt-3 rounded-xl hover:bg-yellow-600 hover:translate-y-px">Checkout</button>
         </div>
       </div>
       <div
         onClick={handleBackHome}
-        className="fixed bottom-1 left-4 p-1 w-28 bg-red-500 text-white rounded-md hover:bg-red-700 cursor-pointer"
+        className="fixed bottom-1 left-4 p-1 w-[180px] bg-red-500 text-white rounded-md hover:bg-red-700 cursor-pointer text-md"
       >
-        <LeftArrow className="w-7 h-7 inline-block m-1"></LeftArrow> Home
+        <LeftArrow className="w-7 h-7 inline-block m-1"></LeftArrow> Add more
+        items +
       </div>
     </>
   );

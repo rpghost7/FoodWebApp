@@ -63,6 +63,7 @@ export default function Card() {
       size: 'regular',
       price: cost,
       category:foodItem.CategoryName,
+    
     });
   } else {
     // Ensure 'half' exists and parse the cost
