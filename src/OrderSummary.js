@@ -18,10 +18,11 @@ import chilliPaneer from "./chilli-paneer02.jpg";
 import fishBiryani from "./Fish biryani.jpeg";
 import chickenCheesePizza from "./chicken-cheese-pizza.jpg";
 import chickenTikka from "./chickentikkakebab.jpg";
+import { UserContext } from "./UserContext";
 
 export default function OrderSummary() {
   const [data, setData] = useState({});
-
+  const { user } = useContext(UserContext);
   let navigate = useNavigate();
   function handleBackHome() {
     navigate("/home");
@@ -50,12 +51,33 @@ export default function OrderSummary() {
     0
   );
   const deliveryCharge = 40;
-  // useEffect(() => {
+  async function handleCheckout() {
+    if (user) {
+      const currentDate = new Date().toISOString();
+      const response = await fetch("http://localhost:5000/api/order-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user.email,
+          order_data: state,
+          date: currentDate,
+        }),
+      });
+      const json = await response.json();
+      if (json.success) {
+        navigate("/home");
+      }
 
-  //   state.map((item)=>
-  //   setTotalPrice((prevTotalPrice)=>prevTotalPrice+item.price*item.quantity)) // Initial calculation when the component mounts or `state` changes
-
-  // }, [state]);
+      await dispatch({
+        type: "CHECKOUT",
+      });
+    } else {
+      alert("Please login or sign up to checkout");
+      navigate("/sign-up");
+    }
+  }
   async function handleIncrement(itemId) {
     await dispatch({
       type: "QTY",
@@ -190,12 +212,12 @@ export default function OrderSummary() {
               <div key={item.id} className="p-2 flex flex-row justify-between">
                 <div className="flex flex-row items-center">
                   <Dot className="w-3 h-3 mx-2"></Dot>
-                  <div className="text-black text-xl">
+                  <div className="text-black text-lg">
                     {item.name} ({item.size}) x {item.quantity}
                   </div>
                 </div>
-                <div className="text-black text-xl mx-2 font-bold">
-                  : {item.price * item.quantity}
+                <div className="text-black text-lg mx-2 ">
+                  : {(item.price * item.quantity).toFixed(2)}
                 </div>
               </div>
             ))}
@@ -205,7 +227,7 @@ export default function OrderSummary() {
                   <div className="text-black text-md">Delivery Charges</div>
 
                   <div className="text-black text-md mx-2 ">
-                    : {deliveryCharge}
+                    : {deliveryCharge.toFixed(2)}
                   </div>
                 </div>
 
@@ -213,14 +235,14 @@ export default function OrderSummary() {
                   <div className="text-black text-md ">GST 2.5%</div>
 
                   <div className="text-black text-md mx-2">
-                    : {totalPrice * 0.025}
+                    : {(totalPrice * 0.025).toFixed(2)}
                   </div>
                 </div>
                 <div className="p-2 flex flex-row justify-between">
                   <div className="text-black text-md ">SGST 2.5%</div>
 
                   <div className="text-black text-md mx-2">
-                    : {totalPrice * 0.025}
+                    : {(totalPrice * 0.025).toFixed(2)}
                   </div>
                 </div>
               </>
@@ -228,18 +250,25 @@ export default function OrderSummary() {
               " "
             )}
             <div className="p-2 flex flex-row justify-between">
-              <div className="text-black text-xl font-black">Total Price</div>
+              <div className="text-black text-xl font-bold">Total Price</div>
 
-              <div className="text-black text-xl mx-2 font-bold">
+              <div className="text-black text-lg mx-2 font-semibold">
                 :{" "}
-                {totalPrice +
+                {(
+                  totalPrice +
                   totalPrice * 0.05 +
-                  (state.length !== 0 ? deliveryCharge : 0)}
-                Rs
+                  (state.length !== 0 ? deliveryCharge : 0)
+                ).toFixed(2)}
+                /-
               </div>
             </div>
           </div>
-          <button className="bg-yellow-500 text-black text-lg text-bold w-11/12 mb-6 mt-3 rounded-xl hover:bg-yellow-600 hover:translate-y-px">Checkout</button>
+          <button
+            onClick={handleCheckout}
+            className="bg-yellow-500 text-black text-lg text-bold w-11/12 mb-6 mt-3 rounded-xl hover:bg-yellow-600 hover:translate-y-px"
+          >
+            Checkout
+          </button>
         </div>
       </div>
       <div

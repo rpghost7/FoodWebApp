@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 // this is how you create a schema in mongoDB 
 // it is useful for creating a new collection in the database
-// just seach mongoDB , in that the documentation will contain the necessary parts
+// just seach mongoDB , in that ,the documentation will contain the necessary parts
 const UserSchema = new Schema({
     name: {
         type: String,

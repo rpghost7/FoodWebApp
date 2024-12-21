@@ -20,7 +20,7 @@ export default function Login() {
         const json = await response.json();
         // here the api sends it as a stream and not as a json object interpreted by
         // javascript that is why we need to json it to interpret it again
-        console.log(json);
+        // console.log(json);
         if (!response.ok) { // Check if the response status is not OK (i.e., 200-299)
             // If there are errors, alert the first error message
             if (json.errors) {
@@ -33,7 +33,7 @@ export default function Login() {
                 alert('An unknown error occurred.'); // Fallback for unknown errors
             }
         } else if (json.success) {
-            setUser({name:json.naming});
+            setUser({name:json.naming,email:json.email});
             localStorage.setItem("authToken",json.authToken);
             
             navigate('/'); // Redirect on successful login

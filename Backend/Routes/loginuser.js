@@ -39,7 +39,7 @@ router.post('/login-user',[
             }
         }
         const token = jwt.sign(data,jwtSecret);
-        res.json({ success: true, naming: userData.name, authToken:token });
+        res.json({ success: true, naming: userData.name, authToken:token,email:userData.email });
         
     } catch (err) {
         console.log(err);
