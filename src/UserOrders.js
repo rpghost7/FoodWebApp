@@ -1,7 +1,7 @@
+
 import React, { useContext, useEffect } from 'react'
 import { UserContext } from './UserContext';
-
-export default function myOrders() {
+export default function UserOrders() {
     const [data,setData]= useState({});
     const {user} = useContext(UserContext);
      useEffect(() => {
@@ -27,8 +27,11 @@ export default function myOrders() {
 
 
   return (
-    <div>
-      
+    <div className='text-white text-lg'>
+      this is my orders
     </div>
   )
 }
+
+
+
