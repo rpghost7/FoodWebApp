@@ -35,6 +35,7 @@ export default function Login() {
         } else if (json.success) {
             setUser({name:json.naming,email:json.email});
             localStorage.setItem("authToken",json.authToken);
+            console.log(json.authToken);
             
             navigate('/'); // Redirect on successful login
             // this is using the useNavigate hook in react
