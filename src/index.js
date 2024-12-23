@@ -6,15 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import { Cart } from './ContextReducer';
+import Token from './Token';
 // we use useContext hook to send information from one file to another
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
     <UserProvider>
       <Cart>
+        <Token>
     <BrowserRouter>
     <App />
     </BrowserRouter>
+    </Token>
     </Cart>
     </UserProvider>
   // </React.StrictMode>

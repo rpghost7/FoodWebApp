@@ -6,6 +6,7 @@ import Login from './Login';
 import Signup from './Signup';
 import Profile from './Profile';
 import OrderSummary from './OrderSummary';
+import Checkout from './Checkout';
 
 // tailwind is in the css file
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path='/order-summary' element={<OrderSummary/>}/>
+        <Route path='/checkout' element={<Checkout/>}/>
       </Routes>
     </div>
 

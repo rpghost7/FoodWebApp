@@ -8,6 +8,10 @@ app.use(cors());
 // this is a cors library also called cross origin resource sharing 
 // meaning sharing resource from one url to another 
 app.use(express.json())
+// app.use((req, res, next) => {
+//   console.log(`Incoming request: ${req.method} ${req.url}`);
+//   next(); // Call the next middleware or route handler
+// });
 // this is only used to parse incoming json files 
 // that means only for requests, so if i dont use it while sending response it is fine
 app.use('/api',require("./Routes/createUser"));

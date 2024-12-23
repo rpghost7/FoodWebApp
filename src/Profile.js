@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Dot } from "./dot-svgrepo-com.svg";
-import { ReactComponent as ArrowUp } from "./arrow-up-337-svgrepo-com.svg";
+// import { ReactComponent as ArrowUp } from "./arrow-up-337-svgrepo-com.svg";
 import { ReactComponent as ArrowDown } from "./arrow-down-338-svgrepo-com.svg";
 export default function Profile() {
   let navigate = useNavigate();
@@ -68,7 +68,7 @@ export default function Profile() {
               isActive ? "max-h-screen duration-700" : "max-h-0 duration-500"
             }`}
           >
-            {data.order?.map((item, index) => (
+            {data.order?.reverse().map((item, index) => (
               <div key={index} className="text-md my-2">
                 <Dot className="w-6 h-6 inline-block"></Dot>{" "}
                 {new Date(item.date).toLocaleString("en-US", {

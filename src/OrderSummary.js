@@ -4,7 +4,7 @@ import { ReactComponent as Dot } from "./dot-svgrepo-com.svg";
 import { ReactComponent as Plus } from "./plus-svgrepo-com.svg";
 import { ReactComponent as Minus } from "./minus-svgrepo-com (1).svg";
 import { ReactComponent as Bin } from "./dustbin-bin-trush-svgrepo-com.svg";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { CartDispatchData, CartStateData } from "./ContextReducer";
 import chickenBiryani from "./Chicken-Biryani-Recipe.jpg";
 import paneer65 from "./Paneer 65.jpeg";
@@ -19,10 +19,12 @@ import fishBiryani from "./Fish biryani.jpeg";
 import chickenCheesePizza from "./chicken-cheese-pizza.jpg";
 import chickenTikka from "./chickentikkakebab.jpg";
 import { UserContext } from "./UserContext";
+import { AuthToken } from "./Token";
 
 export default function OrderSummary() {
   const [data, setData] = useState({});
   const { user } = useContext(UserContext);
+  const {setCartValue} = useContext(AuthToken);
   let navigate = useNavigate();
   function handleBackHome() {
     navigate("/home");
@@ -52,32 +54,37 @@ export default function OrderSummary() {
   );
   const deliveryCharge = 40;
   async function handleCheckout() {
-    if (user) {
+    try {
       const currentDate = new Date().toISOString();
+  
+      // Step 1: Get Access Token
       const response = await fetch("http://localhost:5000/api/order-data", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email,
           order_data: state,
           date: currentDate,
         }),
       });
+  
       const json = await response.json();
-      if (json.success) {
-        navigate("/home");
+      if(json.success){
+        setCartValue(totalPrice + totalPrice*0.05 + deliveryCharge);
+        dispatch({ type: "CHECKOUT" });
+        navigate('/checkout');
       }
+  
+     
+  
+      // Step 3: Render PayPal Button for Approval
 
-      await dispatch({
-        type: "CHECKOUT",
-      });
-    } else {
-      alert("Please login or sign up to checkout");
-      navigate("/sign-up");
+    } catch (error) {
+      console.error("Checkout Error:", error);
     }
   }
+  
+
   async function handleIncrement(itemId) {
     await dispatch({
       type: "QTY",
@@ -263,11 +270,13 @@ export default function OrderSummary() {
               </div>
             </div>
           </div>
+         
           <button
             onClick={handleCheckout}
             className="bg-yellow-500 text-black text-lg text-bold w-11/12 mb-6 mt-3 rounded-xl hover:bg-yellow-600 hover:translate-y-px"
           >
-            Checkout
+             Checkout
+           
           </button>
         </div>
       </div>
