@@ -7,6 +7,7 @@ import Signup from './Signup';
 import Profile from './Profile';
 import OrderSummary from './OrderSummary';
 import Checkout from './Checkout';
+import VerifyOTP from './VerifyOTP';
 
 // tailwind is in the css file
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="log-in" element={<Login />} />
           <Route path="sign-up" element={<Signup />} />
+          <Route path="verifyotp" element={<VerifyOTP />} />
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path='/order-summary' element={<OrderSummary/>}/>

@@ -1,44 +1,44 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from './UserContext';
+
 
 export default function Signup() {
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", location: "" });
-    const { setUser } = useContext(UserContext); // Use the context
+ 
     let navigate = useNavigate();
     async function handleSubmit(event) {
         event.preventDefault();
-        // this is removed so that the page reloads on it's own otherwise it just looks like it hasn't been submitted
-        const response = await fetch("http://192.168.29.73:5000/api/createuser", {
+        const userCheck = await fetch("http://192.168.29.73:5000/api/emailcheck", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password, location: credentials.location })
-        })
-        const json = await response.json();
-        console.log(json);
-        if (!response.ok) {
-            // this is to check is response status is not ok
-            if (json.errors) {
-                // Map over the errors to display a formatted message
-                const errorMessages = json.errors.map(error => error.msg).join('\n');
-                // here i use join \n because if there are two error messages to be displayed
-                // it will be displayed one on top of another and not separated by a comma
-                alert(errorMessages); // Show all error messages
-
-                if (errorMessages === 'You are already a user please log in') {
-                    navigate('/log-in');
-                }
-            } else {
-                alert('An unknown error occurred.'); // Fallback for unknown errors
-            }
-        }
-        else if (json.success) {
-            setUser({ name: json.naming,email:json.email })
-            navigate('/');
+            body: JSON.stringify({email:credentials.email})
+        });
+        const userResponse =  await userCheck.json();
+        if(!userResponse.success){
+            alert(userResponse.message);
+            navigate('/log-in');
+            return;
         }
 
+        // Send user details to the backend
+        const response = await fetch("http://192.168.29.73:5000/api/send-verification", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({phoneNumber : '+917738301351'})
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            alert("OTP sent to your phone number!");
+            // Pass user details to OTP verification page
+            navigate('/verifyotp', { state: { credentials } });
+        } else {
+            alert(result.message || "Failed to send OTP.");
+        }
     }
     function handleChange(event) {
         // here i have to write the event.target.name in the brackets
