@@ -20,8 +20,11 @@ app.use('/api',require("./Routes/DisplayData"));
 app.use('/api',require('./Routes/DisplayOrders'));
 // this mounts the route and creates it 
 // meaning it is /api/loginuser is the route
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${port}`);
+});
 
 // now

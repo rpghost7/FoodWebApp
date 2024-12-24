@@ -10,7 +10,7 @@ export default function Login() {
     let navigate = useNavigate();
     async function handleSubmit(event) {
         event.preventDefault();
-        const response = await fetch("http://localhost:5000/api/login-user", {
+        const response = await fetch("http://192.168.29.73:5000/api/login-user", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

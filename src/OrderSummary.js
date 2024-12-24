@@ -56,23 +56,31 @@ export default function OrderSummary() {
   async function handleCheckout() {
     try {
       const currentDate = new Date().toISOString();
+      // Ensure user email exists
+      if (!user || !user.email) {
+        alert('Sign in or log in to proceed with checkout');
+        navigate('/sign-up');
+        return;
+      }
   
       // Step 1: Get Access Token
-      const response = await fetch("http://localhost:5000/api/order-data", {
+      const response = await fetch("http://192.168.29.73:5000/api/order-data", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: user.email,
+          email: user?.email,
           order_data: state,
           date: currentDate,
         }),
       });
-  
+      console.log(user.email);
       const json = await response.json();
       if(json.success){
         setCartValue(totalPrice + totalPrice*0.05 + deliveryCharge);
         dispatch({ type: "CHECKOUT" });
         navigate('/checkout');
+      }else{
+        navigate('/sign-up');
       }
   
      
@@ -125,7 +133,7 @@ export default function OrderSummary() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/food-data", {
+        const response = await fetch("http://192.168.29.73:5000/api/food-data", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -9,7 +9,7 @@ export default function Signup() {
     async function handleSubmit(event) {
         event.preventDefault();
         // this is removed so that the page reloads on it's own otherwise it just looks like it hasn't been submitted
-        const response = await fetch("http://localhost:5000/api/createuser", {
+        const response = await fetch("http://192.168.29.73:5000/api/createuser", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ export default function Signup() {
             }
         }
         else if (json.success) {
-            setUser({ name: json.naming })
+            setUser({ name: json.naming,email:json.email })
             navigate('/');
         }
 
