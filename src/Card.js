@@ -13,7 +13,7 @@ import chickenCheesePizza from "./chicken-cheese-pizza.jpg";
 import chickenTikka from "./chickentikkakebab.jpg";
 import { ReactComponent as StarIcon } from "./Star.svg";
 import { CartDispatchData, CartStateData } from "./ContextReducer";
-
+import { motion } from "framer-motion";
 export default function Card() {
   const [data, setData] = useState({});
   const [hoverItemId, setHoverItemId] = useState(null);
@@ -45,43 +45,42 @@ export default function Card() {
     } else {
       // If the id does not exist in the state, dispatch an add
       // If the id does not exist in the state, dispatch an add
-  let cost;
-  const options = foodItem.options[0]; // Access the first element of the options array
+      let cost;
+      const options = foodItem.options[0]; // Access the first element of the options array
 
-  if (foodItem.CategoryName === 'Pizza') {
-    // Ensure 'regular' exists and parse the cost
-    cost = parseInt(options?.regular, 10);
-    if (isNaN(cost)) {
-      console.error("Invalid cost for regular size:", options?.regular);
-      alert("Price not available for regular size.");
-      return;
-    }
-    await dispatch({
-      type: "ADD",
-      id: foodItem._id,
-      name: foodItem.name,
-      size: 'regular',
-      price: cost,
-      category:foodItem.CategoryName,
-    
-    });
-  } else {
-    // Ensure 'half' exists and parse the cost
-    cost = parseInt(options?.half, 10);
-    if (isNaN(cost)) {
-      console.error("Invalid cost for half size:", options?.half);
-      alert("Price not available for half size.");
-      return;
-    }
-    await dispatch({
-      type: "ADD",
-      id: foodItem._id,
-      name: foodItem.name,
-      size: 'half',
-      price: cost,
-      category: foodItem.CategoryName,
-    });
-  }
+      if (foodItem.CategoryName === "Pizza") {
+        // Ensure 'regular' exists and parse the cost
+        cost = parseInt(options?.regular, 10);
+        if (isNaN(cost)) {
+          console.error("Invalid cost for regular size:", options?.regular);
+          alert("Price not available for regular size.");
+          return;
+        }
+        await dispatch({
+          type: "ADD",
+          id: foodItem._id,
+          name: foodItem.name,
+          size: "regular",
+          price: cost,
+          category: foodItem.CategoryName,
+        });
+      } else {
+        // Ensure 'half' exists and parse the cost
+        cost = parseInt(options?.half, 10);
+        if (isNaN(cost)) {
+          console.error("Invalid cost for half size:", options?.half);
+          alert("Price not available for half size.");
+          return;
+        }
+        await dispatch({
+          type: "ADD",
+          id: foodItem._id,
+          name: foodItem.name,
+          size: "half",
+          price: cost,
+          category: foodItem.CategoryName,
+        });
+      }
     }
     // state.some checks if any element matches the condition
     setHoverItemId2(null);
@@ -97,7 +96,7 @@ export default function Card() {
       delete notificationTimeouts.current[foodItem._id]; // Clean up timeout reference after it runs
     }, 2000);
   }
- 
+
   const filteredItems = data.food_items?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -118,12 +117,15 @@ export default function Card() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://192.168.29.73:5000/api/food-data", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "http://192.168.29.73:5000/api/food-data",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await response.json();
         // console.log(data.food_items);
         setData(data);
@@ -167,12 +169,19 @@ export default function Card() {
                   const percentage = Math.round((no / 5) * 100);
 
                   return (
-                    <div
+                    <motion.div
                       key={foodItem._id}
                       onClick={() => {
                         handleAddCart(foodItem);
                       }}
                       className="w-11/12 h-full rounded-md relative cursor-pointer"
+                      initial={{ opacity: 0, scale: 0.7 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 2,
+                        delay: 0.7,
+                        ease: [0, 0.71, 0.2, 1.01],
+                      }}
                     >
                       {notification === foodItem._id ? (
                         <div className="text-white bg-violet-500 absolute w-28 p-1 top-[-3rem] right-0 rounded-xl z-10">
@@ -223,7 +232,7 @@ export default function Card() {
                           />
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
             </div>
