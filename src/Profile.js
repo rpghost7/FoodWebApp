@@ -68,7 +68,7 @@ export default function Profile() {
               isActive ? "max-h-screen duration-700" : "max-h-0 duration-500"
             }`}
           >
-            {data.order?.reverse().map((item, index) => (
+            {data.order?.map((item, index) => (
               <div key={index} className="text-md my-2">
                 <Dot className="w-6 h-6 inline-block"></Dot>{" "}
                 {new Date(item.date).toLocaleString("en-US", {

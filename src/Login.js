@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
+import { ReactComponent as EyeOn } from "./eye-svgrepo-com.svg";
+import { ReactComponent as EyeOff } from "./eye-off-svgrepo-com.svg";
 export default function Login() {
     const [credentials, setCredentials] = useState({  email: "", password: "" });
     const { setUser } = useContext(UserContext); // Use the context
     // here we are borrowing setUser from the usercontext and assigning a value
     // which can be used in other files as well , and this is how we are able to display in
     // the navbar that we are logged in or signed in etc
+    const [showPassword,setShowPassword] = useState(true);
     let navigate = useNavigate();
     async function handleSubmit(event) {
         event.preventDefault();
@@ -47,6 +50,9 @@ export default function Login() {
         setCredentials({ ...credentials, [event.target.name]: event.target.value });
 
     }
+    function togglePasswordVisibility() {
+        setShowPassword(!showPassword);
+    }
     return (
         <>
             <div className='flex flex-row justify-center'>
@@ -58,9 +64,12 @@ export default function Login() {
                             <label htmlFor="email" className='text-white text-xl'>Email:</label>
                             <input value={credentials.email} onChange={handleChange} className='block w-full border-4 border-solid focus:border-violet-300 focus:outline-none rounded-xl' type="email" id="email" name="email" required />
                         </div>
-                        <div className='block p-5'>
+                        <div className='block p-5 relative'>
                             <label htmlFor="password" className='text-white text-xl'>Password:</label>
-                            <input value={credentials.password} onChange={handleChange} className='block w-full border-4 border-solid focus:border-violet-300 focus:outline-none rounded-xl' type="password" id="password" name="password" required />
+                            <input value={credentials.password} onChange={handleChange} className='block w-full border-4 border-solid focus:border-violet-300 focus:outline-none rounded-xl' type={showPassword ? 'password':'text'} id="password" name="password" required />
+                            {showPassword ?<EyeOff onClick={togglePasswordVisibility} className='w-8 h-8 absolute bottom-5 right-8 cursor-pointer'></EyeOff> :<EyeOn onClick={togglePasswordVisibility} className='w-8 h-8 absolute bottom-5 right-8 cursor-pointer'></EyeOn>}
+                        
+                        
                         </div>
                        
                         <div className='flex justify-center space-x-3 p-5'>
