@@ -1,43 +1,51 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
-import { UserContext } from './UserContext';
-import { useContext } from 'react';
-
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
+import { UserContext } from "./UserContext";
+import { useContext } from "react";
+import { ReactComponent as ShapeAbstract } from "./shape-abstract-svgrepo-com.svg";
+import { motion } from "framer-motion";
 export default function Navbar() {
-    const { user } = useContext(UserContext);
-    return (
-        <>
-            <div className='bg-violet-600 flex flex-row justify-between'>
-
-                <div className='flex flex-row'>
-                    <div className=' relative text-white text-4xl m-4 font-permanent-marker text-emerald-400'>
-                        <Link to="/home">
-                            StayHungri</Link></div>
-                    <div className=' relative text-white text-xl m-7 hover:text-violet-300 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-300 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full '>
-                        <Link to="/home">
-                            Home</Link></div>
-                    <div className=' relative text-white text-xl m-7 hover:text-violet-300 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-300 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full '>
-                        <Link to="/contact">
-                            Contact</Link></div>
-                </div>
-                <div className=' relative text-white text-xl m-7 hover:text-violet-300 '>
-                    {user ? (
-                        <Link to="/profile">{user.name}</Link>
-                    ) : (
-                        <Link to="/sign-up">Sign Up</Link>
-                    )}
-                </div>
-
-
-
-
-            </div>
-            <Outlet />
-
-        </>
-    )
+  const { user } = useContext(UserContext);
+  return (
+    <>
+      <div className="bg-violet-600 flex flex-row justify-between">
+        <div className="flex flex-row">
+          <div className=" relative text-white text-4xl m-4 font-permanent-marker text-emerald-400 flex flex-row items-center">
+            <Link to="/home">StayHungri</Link>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+            
+                repeatType:"loop",
+                
+                repeatDelay:2
+              }}
+          
+            
+            >
+              <ShapeAbstract className="w-6 h-6 ml-2"></ShapeAbstract>
+            </motion.div>
+          </div>
+          <div className=" relative text-white text-xl m-7 hover:text-violet-300 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-300 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full ">
+            <Link to="/home">Home</Link>
+          </div>
+          <div className=" relative text-white text-xl m-7 hover:text-violet-300 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-300 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full ">
+            <Link to="/contact">Contact</Link>
+          </div>
+        </div>
+        <div className=" relative text-white text-xl m-7 hover:text-violet-300 ">
+          {user ? (
+            <Link to="/profile">{user.name}</Link>
+          ) : (
+            <Link to="/sign-up">Sign Up</Link>
+          )}
+        </div>
+      </div>
+      <Outlet />
+    </>
+  );
 }
-
 
 // below is the css code to create a custom underline
 
@@ -55,4 +63,3 @@ export default function Navbar() {
 // .button:hover::after {
 //   width: 100%;
 // }
-
