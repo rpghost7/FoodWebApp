@@ -12,7 +12,7 @@ export default function VerifyOTP() {
         const credentials = state.credentials;
 
         // Verify the OTP
-        const response = await fetch("http://192.168.29.73:5000/api/verify-otp", {
+        const response = await fetch("http://localhost:5000/api/verify-otp", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export default function VerifyOTP() {
         const result = await response.json();
         if (result.success) {
             // Create the user after OTP is verified
-            const userResponse = await fetch("http://192.168.29.73:5000/api/createuser", {
+            const userResponse = await fetch("http://localhost:5000/api/createuser", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

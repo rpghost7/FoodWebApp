@@ -22,7 +22,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://192.168.29.73:5000/api/myOrders", {
+        const response = await fetch("http://localhost:5000/api/myOrders", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

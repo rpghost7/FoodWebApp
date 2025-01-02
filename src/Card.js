@@ -118,7 +118,7 @@ export default function Card() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.29.73:5000/api/food-data",
+          "http://localhost:5000/api/food-data",
           {
             method: "POST",
             headers: {

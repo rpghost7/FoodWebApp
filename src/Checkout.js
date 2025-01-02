@@ -38,7 +38,7 @@ export default function Checkout() {
       createOrder={async () => {
         try {
           const response = await fetch(
-            "http://192.168.29.73:5000/api/orders",
+            "http://localhost:5000/api/orders",
             {
               method: "POST",
               headers: {
@@ -72,7 +72,7 @@ export default function Checkout() {
       onApprove={async (data, actions) => {
         try {
           const response = await fetch(
-            `http://192.168.29.73:5000/api/orders/${data.orderID}/capture`,
+            `http://localhost:5000/api/orders/${data.orderID}/capture`,
             {
               method: "POST",
               headers: {
