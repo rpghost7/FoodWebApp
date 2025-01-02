@@ -178,8 +178,8 @@ export default function Card() {
                       initial={{ opacity: 0, scale: 0.7 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{
-                        duration: 2,
-                        delay: 0.7,
+                        duration: 1,
+                        delay: 0.4,
                         ease: [0, 0.71, 0.2, 1.01],
                       }}
                     >

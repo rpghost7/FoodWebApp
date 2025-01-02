@@ -62,9 +62,12 @@ export default function OrderSummary() {
         navigate('/sign-up');
         return;
       }
-  
+      if(totalPrice === 0){
+        alert('Add some items to checkout')
+        return;
+      }
       // Step 1: Get Access Token
-      const response = await fetch("http://192.168.29.73:5000/api/order-data", {
+      const response = await fetch("http://localhost:5000/api/order-data", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -133,7 +136,7 @@ export default function OrderSummary() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://192.168.29.73:5000/api/food-data", {
+        const response = await fetch("http://localhost:5000/api/food-data", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
