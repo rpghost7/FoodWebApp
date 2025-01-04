@@ -4,6 +4,7 @@ import { UserContext } from "./UserContext";
 import { useContext } from "react";
 import { ReactComponent as ShapeAbstract } from "./shape-abstract-svgrepo-com.svg";
 import { motion } from "framer-motion";
+import Shuffle from "./Shuffle";
 
 
 
@@ -15,7 +16,7 @@ export default function Navbar() {
         <div className="flex flex-row">
           <div className=" relative text-white text-4xl m-4 font-permanent-marker text-emerald-400 flex flex-row items-center">
             <Link to="/home">StayHungri</Link>
-            <motion.div
+            {/* <motion.div
               animate={{ rotate: 360 }}
               transition={{
                 repeat: Infinity,
@@ -29,7 +30,8 @@ export default function Navbar() {
             >
                <ShapeAbstract className="w-6 h-6 ml-2 origin-center"></ShapeAbstract>
               
-            </motion.div>
+            </motion.div> */}
+            <Shuffle ></Shuffle>
           </div>
           <div className=" relative text-white text-xl m-7 hover:text-violet-300 after:absolute after:left-0 after:bottom-0 after:w-0 after:h-1 after:bg-purple-300 after:transition-all after:ease-in-out after:duration-300 hover:after:w-full ">
             <Link to="/home">Home</Link>
