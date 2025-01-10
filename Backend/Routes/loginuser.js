@@ -3,10 +3,10 @@ const router = express.Router();
 const User = require('../modules/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const jwtSecret= 'Thisismysecrettoken'
+const jwtSecret= '<Keep any secret you want>'
 const { body, validationResult } = require('express-validator');
 // this thing is called express validator 
-// we are taking take collection from the file
+
 router.post('/login-user',[
  
 //  checks whether the name is at least 3 characters long
