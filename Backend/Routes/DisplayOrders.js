@@ -5,20 +5,18 @@ const router = express.Router();
 const myOrder = require("../modules/Orders");
 
 const Buffer = require("buffer").Buffer;
- // This line should be at the top
 
-// PayPal client credentials from environment variables
-const CLIENT_ID = "AfKw6hNf1aDBORgmI0VfrBLqUPWdKwB0aT0FUjqMJA7swZDkjc4rYU0SYnRv1D7vG1DUpnx5_bdbau6O";
-const CLIENT_SECRET = "EOGP-jG_gCm3fP6-hK8qhUZ0bx5_IeQ26y9QU0q70QGKOS4Woj0Ms9cUzPPb_egBnra0Kc_RXViJQ3lV";
-// PayPal client credentials
-// console.log("PayPal Client ID:", CLIENT_ID);
-// console.log("PayPal Client Secret:", CLIENT_SECRET);
+
+
+const CLIENT_ID = "<Enter your Client ID from paypal business account";
+const CLIENT_SECRET = "<Enter your Client secret also from the paypal business account>";
+
 
 async function getAccessToken() {
-  // Basic Authentication (Client ID and Secret)
+
   const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");
 
-  // Make the POST request to get the access token
+  
   const response = await fetch(
     "https://api-m.sandbox.paypal.com/v1/oauth2/token",
     {
@@ -27,20 +25,20 @@ async function getAccessToken() {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Basic ${auth}`,
       },
-      body: "grant_type=client_credentials", // Body to request client credentials
+      body: "grant_type=client_credentials", 
     }
   );
 
   const data = await response.json(); // Parse the response as JSON
 
   if (data.access_token) {
-    // console.log("Access Token:", data.access_token);
-    return data.access_token; // Return the access token
+   
+    return data.access_token; 
   } else {
     console.error("Error:", data);
   }
 }
-// Create Order
+
 const createOrder = async (item) => {
   const accessToken = await getAccessToken();
 
