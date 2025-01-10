@@ -2,26 +2,7 @@ const mongoose = require('mongoose');
 // the below thing is a url to connect to the database
 // to connect to our database paste the name of it before ?
 const mongoURL = 'mongodb+srv://rishabpillai78:now4@clusterfood.3zbyo.mongodb.net/FoodDeliveryy?retryWrites=true&w=majority&appName=Clusterfood';
-
-// const mongoDB = () => {
-//     mongoose.connect(mongoURL)
-//         .then(() => {
-//             console.log('Connected to MongoDB');
-//             return mongoose.connection.db.collection("sample1");
-//         })
-//         .then((fetch_data) => {
-//             // Return the Promise from `toArray()`
-//             return fetch_data.find({}).toArray();
-//         })
-//         .then(() => {
-//             // Log the fetched data
-//             console.log("Fetched data:", data);
-//             // console.log('data will be displayed');
-//         })
-//         .catch((err) => {
-//             console.error("Error:", err);
-//         });
-// };
+// above put the mongodb URL which you have with your database and replace the username and the collection with what you want
 
 
 
