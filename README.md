@@ -1,6 +1,6 @@
 # Important things to note
 Below are-
-#Paypal Gateway
+# Paypal Gateway
 I have added paypal gateway using paypal sandbox, if you want to check it you can use your paypal sandbox account or an actual account to verify it
 It requires a US based customer as the paypal api was only available for US, I tried other ways but couldn't quite find it
 
