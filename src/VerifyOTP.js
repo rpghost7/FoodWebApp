@@ -17,7 +17,7 @@ export default function VerifyOTP() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ phoneNumber:"+917738301351", otp })
+            body: JSON.stringify({ phoneNumber:"<Send your phone number>", otp:otp })
         });
 
         const result = await response.json();
