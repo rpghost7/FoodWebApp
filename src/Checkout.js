@@ -16,7 +16,7 @@ export default function Checkout() {
   const { CartValue } = useContext(AuthToken);
   const initialOptions = {
     "client-id":
-      "AfKw6hNf1aDBORgmI0VfrBLqUPWdKwB0aT0FUjqMJA7swZDkjc4rYU0SYnRv1D7vG1DUpnx5_bdbau6O",
+      "<Get Client ID from the paypal business account>",
     "enable-funding": "venmo",
     "disable-funding": "",
     "buyer-country": "US",
