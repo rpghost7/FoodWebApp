@@ -35,7 +35,7 @@ export default function Signup() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ phoneNumber: "+917738301351" }),
+        body: JSON.stringify({ phoneNumber: "<Take input as phone Number>" }),
       }
     );
 
@@ -154,56 +154,4 @@ export default function Signup() {
 
 // now to verify the jwt before every request we use it in the following manner
 // first is we include it in the header
-// const response = await fetch("http://localhost:5000/api/protected-route", {
-//     method: "GET", // or "POST", "PUT", etc., depending on the request
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-//     }
-// });
 
-// backend
-// const jwt = require('jsonwebtoken');
-
-// function authenticateToken(req, res, next) {
-//     const authHeader = req.headers['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1];
-// Extract token from "Bearer <token>"
-//     if (!token) return res.status(401).json({ msg: 'Access Denied. No token provided.' });
-
-//     try {
-//         const verified = jwt.verify(token, process.env.JWT_SECRET); // Use your secret key
-//         req.user = verified; // Attach user info to the request
-//         next(); // Pass control to the next middleware or route handler
-//     } catch (err) {
-//         res.status(403).json({ msg: 'Invalid Token' });
-//     }
-// }
-
-// module.exports = authenticateToken;
-// the above thing is a middleware or a function which is called by the backend to verify the authentication token before the request
-// if the authentication token is  valid then it will carry on with the request
-
-// const express = require('express');
-// const router = express.Router();
-// const authenticateToken = require('./middleware/authenticateToken');
-
-// router.get('/protected-route', authenticateToken, (req, res) => {
-//     res.json({ msg: 'You have accessed a protected route', user: req.user });
-// });
-
-// module.exports = router;
-
-// for token expiry
-// import jwtDecode from 'jwt-decode';
-
-// function isTokenExpired(token) {
-//     const { exp } = jwtDecode(token);
-//     return Date.now() >= exp * 1000;
-// }
-
-// const token = localStorage.getItem('authToken');
-// if (!token || isTokenExpired(token)) {
-//     alert('Session expired. Please log in again.');
-//     navigate('/login');
-// }
