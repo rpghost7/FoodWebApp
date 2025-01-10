@@ -5,16 +5,15 @@ const bcrypt = require ('bcrypt');
 
 const twilio = require('twilio');
 
-const accountSid = 'AC0b23435f390820c8a01279c0961c8309'
-const authentToken = 'a270696270a395ed6287226dc8bdc82a'  // Replace with your Twilio Auth Token
+const accountSid = '<Enter your accountSID given in twilio account>'
+const authentToken = '<Enter Auth Token given in twilio account>'  
 
 const client = twilio(accountSid, authentToken);
 
 
-// importing the bcrypt module
+
 const { body, validationResult } = require('express-validator');
-// this thing is called express validator 
-// we are taking take collection from the file
+
 
 router.post('/createuser',[
  body('name').isLength({ min: 3 }),
@@ -86,8 +85,8 @@ router.post("/send-verification", async (req, res) => {
 
     try {
         const verification = await client.verify.v2
-            .services("VA2ea054056e8a7629ad3479e7ba12e278")
-            .verifications.create({ to: '+917738301351', channel: "sms" })
+            .services("<Verify service SID>")
+            .verifications.create({ to: 'phoneNumber', channel: "sms" })
             console.log("Verification SID:", verification.sid); // Log verification SID
 
         res.status(200).json({ success: true, sid: verification.sid });
@@ -99,11 +98,11 @@ router.post("/send-verification", async (req, res) => {
 
 router.post('/verify-otp', async (req, res) => {
     const otp = req.body.otp;
-  
+  const phoneNumber=req.body.phoneNumber
     try {
       const verificationCheck = await client.verify.v2
-        .services("VA2ea054056e8a7629ad3479e7ba12e278") // Replace with your Verify Service SID
-        .verificationChecks.create({ to:'+917738301351', code: otp });
+        .services("<Verify Service SID>") // Replace with your Verify Service SID
+        .verificationChecks.create({ to:'phoneNumber', code: otp });
   
       if (verificationCheck.status === 'approved') {
         res.json({ success: true, message: 'OTP verified successfully!' });
