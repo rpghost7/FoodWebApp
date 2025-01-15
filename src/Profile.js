@@ -48,7 +48,7 @@ export default function Profile() {
     };
 
     fetchData();
-  }, []);
+  }, [user.email]);
 
   return (
     <>
