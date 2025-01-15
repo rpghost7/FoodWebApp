@@ -13,7 +13,7 @@ import chickenCheesePizza from "./chicken-cheese-pizza.jpg";
 import chickenTikka from "./chickentikkakebab.jpg";
 import { ReactComponent as StarIcon } from "./Star.svg";
 import { CartDispatchData, CartStateData } from "./ContextReducer";
-import { motion, Reorder } from "framer-motion";
+import { motion } from "framer-motion";
 export default function Card() {
   const [data, setData] = useState({});
   const [hoverItemId, setHoverItemId] = useState(null);
