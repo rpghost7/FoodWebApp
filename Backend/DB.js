@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // the below thing is a url to connect to the database
 // to connect to our database paste the name of it before ?
-const mongoURL = 'mongodb+srv://rishabpillai78:now4@clusterfood.3zbyo.mongodb.net/FoodDeliveryy?retryWrites=true&w=majority&appName=Clusterfood';
+const mongoURL = 'mongodb+srv://<username>:<password>@clusterfood.3zbyo.mongodb.net/<database_name>?retryWrites=true&w=majority&appName=Clusterfood';
 // above put the mongodb URL which you have with your database and replace the username and the collection with what you want
 
 
